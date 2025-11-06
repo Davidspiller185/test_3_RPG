@@ -19,11 +19,9 @@ class Game:
     def choose_random_monster():
         monster=random.randint(0,1)
         if 0<=monster<=0.5:
-            monster=Orc
             monster_1=Orc("mon","knife",)
             return monster_1
         else:
-            monster=Goblin
             monster_2=Goblin("gob","sword")
             return monster_2
     @staticmethod
@@ -33,12 +31,20 @@ class Game:
         val,side=Game.roll_dice(6)
         mon=val+monster.speed
         max_val=max(play,mon)
-        if max_val==play:
-            player.attack(player,monster)
+        if (max_val==play) or (max_val==play and max_val==mon):
+            attack_return=player.attack(player, monster)
+            return attack_return
+
+        else:
+            attack_return=monster.attack(monster,player)
+
+
+
+
+
         elif max_val==mon:
             monster.attack(monster,player)
-        else:
-            player.attack(player,monster)
+
 
 
 
