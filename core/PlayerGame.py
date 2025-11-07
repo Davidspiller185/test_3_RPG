@@ -11,7 +11,6 @@ class PlayerGame(ABC):
     def speak(self):
         pass
     @abstractmethod
-    @staticmethod
-    def attack(attack,attacked):
+    def attack(self,attack,attacked):
         pass
 

@@ -1,14 +1,14 @@
 import random
 
-from core.orc import Orc
+import core.orc
+
+
 from core.goblin import Goblin
 class Game:
     @staticmethod
     def start():
         decision=Game.show_menu()
-        if decision=="exit":
-            print("exit from the game")
-            return
+        return decision
     @staticmethod
     def show_menu():
         choice=input("if you want to play press:play, if you want to exit press:exit")
@@ -19,38 +19,30 @@ class Game:
     def choose_random_monster():
         monster=random.randint(0,1)
         if 0<=monster<=0.5:
-            monster_1=Orc("mon","knife",)
+            monster_1=core.orc.Orc("mon","knife")
             return monster_1
         else:
-            monster_2=Goblin("gob","sword")
-            return monster_2
+            monster_1=Goblin("gob","sword")
+            return monster_1
     @staticmethod
-    def battle(player, monster):
+    def battle(player_1, monster_1):
         value,sides=Game.roll_dice(6)
-        play=value+player.speed
+        play=value+player_1.speed
+        print(f"the play value roll is:{play}")
         val,side=Game.roll_dice(6)
-        mon=val+monster.speed
+        mon=val+monster_1.speed
+        print(f"the monster value roll is:{mon}")
         max_val=max(play,mon)
         if (max_val==play) or (max_val==play and max_val==mon):
-            attack_return=player.attack(player, monster)
-            return attack_return
+            player_1.attack(player_1, monster_1)
 
         else:
-            attack_return=monster.attack(monster,player)
-
-
-
-
-
-        elif max_val==mon:
-            monster.attack(monster,player)
-
-
+            monster_1.attack(monster_1,player_1)
 
 
     @staticmethod
-    def roll_dice(sides):
-        value=random.randint(1,sides)
+    def roll_dice(sides:int):
+        value=random.randint(1 ,sides)
         return value,sides
 
 
